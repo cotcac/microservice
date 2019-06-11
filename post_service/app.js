@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+const axios = require('axios');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -21,7 +21,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-
+console.log('always run first');
+//auto register to service registry.
+const registerService = () => axios.put(`http://localhost:3003/register/posts/1.0/3001`);
+const unregisterService = () => axios.delete(`http://localhost:3003/register/posts/1.0/3001`);
+registerService();
+//clean up
+const cleanup = async() =>{
+  await unregisterService();
+}
+process.on('uncaughtException', async () =>{
+  await cleanup();
+})
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

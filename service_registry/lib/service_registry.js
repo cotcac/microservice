@@ -9,7 +9,7 @@ class ServiceRegistry {
     
         const candidates = Object.values(this.services)
         .filter(service => service.name === name && service.version === version);
-        return candidates;
+        return candidates[0];
 
     }
     getAll(){
