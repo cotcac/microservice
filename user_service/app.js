@@ -25,7 +25,15 @@ app.use('/users', usersRouter);
 console.log('always run first');
 //auto register to service registry.
 const registerService = () => axios.put(`http://localhost:3003/register/users/1.0/3002`);
+const unregisterService = () => axios.delete(`http://localhost:3003/register/users/1.0/3002`);
 registerService();
+//clean up
+const cleanup = async() =>{
+  await unregisterService();
+}
+process.on('uncaughtException', async () =>{
+  await cleanup();
+})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
