@@ -1,7 +1,8 @@
 const axios = require('axios');
+const CircuitBreaker = require('./circuitBreaker');
+const circuitBreaker = new CircuitBreaker();
 exports.callService = async function callService(requestOptions) {
-    const response = await axios(requestOptions);
-    return response.data;
+    return circuitBreaker.callService(requestOptions);
 };
 exports.getService =  async function getService(serviceName) {
     // this should be in config file not hard code :)
