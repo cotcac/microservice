@@ -46,3 +46,9 @@ node bin/www
 cd post_service
 node bin/www
 ```
+
+# Test
+Call API gateway
+
+http://localhost:3000/posts
+http://localhost:3000/users
