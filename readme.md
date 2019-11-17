@@ -1,6 +1,5 @@
-# app
+# api gateway
 It is our api gateway
-We dont make the UI here.
 
 # UI 
 
