@@ -1,10 +1,11 @@
 const axios = require('axios');
-
+//TODO
+// when service back to life have to make circut from open to close immidiately not have to wait for xxx time.
 class CircuitBreaker {
   constructor() {
     this.states = {};
     this.failureThreshold = 5;//times
-    this.cooldownPeriod = 3600;// after x seconds it will try to call micro service again.
+    this.cooldownPeriod = 100;// after x seconds it will try to call micro service again.
     this.requestTimeout = 1;// second
   }
 

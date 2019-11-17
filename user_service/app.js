@@ -24,8 +24,20 @@ app.use('/users', usersRouter);
 
 console.log('always run first');
 //auto register to service registry.
-const registerService = () => axios.put(`http://localhost:3003/register/users/1.0/3002`);
-const unregisterService = () => axios.delete(`http://localhost:3003/register/users/1.0/3002`);
+const registerService = () => axios.put(`http://localhost:3003/register/users/1.0/3002`).then(r=>{
+  console.log("register to registry service sucess");
+  
+}).catch(e=>{
+  console.log('register service error', e);
+  
+})
+const unregisterService = () => axios.delete(`http://localhost:3003/register/users/1.0/3002`).then(r=>{
+  console.log("delete to registry service sucess");
+  
+}).catch(e=>{
+  console.log('delete service error', e);
+  
+})
 registerService();
 //clean up
 const cleanup = async() =>{
