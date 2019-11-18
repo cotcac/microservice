@@ -33,6 +33,26 @@ Default port 3003
 cd service_registry
 node bin/www
 ```
+## List all service registers
+http://localhost:3003/
+```
+[
+  {
+    "timestamp": 1574067030,
+    "ip": "[::ffff:127.0.0.1]",
+    "port": "3002",
+    "name": "users",
+    "version": "1.0"
+  },
+  {
+    "timestamp": 1574066909,
+    "ip": "[::ffff:127.0.0.1]",
+    "port": "3001",
+    "name": "posts",
+    "version": "1.0"
+  }
+]
+```
 
 ## start user service
 
@@ -50,4 +70,5 @@ node bin/www
 Call API gateway
 
 http://localhost:3000/posts  
-http://localhost:3000/users
+http://localhost:3000/users  
+
