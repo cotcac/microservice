@@ -7,8 +7,19 @@ const axios = require("axios");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var schedule = require("node-schedule");
-var app = express();
+var cors = require("cors");
+var whitelist = ["http://localhost:3001", "http://example2.com"];
 
+var corsOptions = {
+  origin: function(origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  }
+};
+var app = express();
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
