@@ -26,11 +26,10 @@ const unregisterService = () =>
   axios.delete(`http://localhost:3003/register/posts/1.0/3001`);
 
 registerService();
-schedule.scheduleJob("*/30 * * * * *", function() {
-  registerService();
-});
+const interval = setInterval(registerService, 30000);// refresh registry after 30'
 //clean up
 const cleanup = async () => {
+  clearInterval(interval);
   await unregisterService();
 };
 process.on("uncaughtException", async () => {
@@ -49,7 +48,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render("error");
+  res.json(err.stack);
 });
 
 module.exports = app;

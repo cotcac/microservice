@@ -39,13 +39,10 @@ const unregisterService = () =>
     });
 // auto regisgter when start app
 registerService();
-// refresh the register every 30'
-schedule.scheduleJob("*/30 * * * * *", function() {
-  registerService();
-});
-
+const interval = setInterval(registerService, 30000);// refresh registry after 30'
 //clean up
 const cleanup = async () => {
+  clearInterval(interval);
   await unregisterService();
 };
 process.on("uncaughtException", async () => {
