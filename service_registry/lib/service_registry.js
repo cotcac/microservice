@@ -6,6 +6,7 @@ class ServiceRegistry {
     this.timeout = 30;
   }
   get(name, version) {
+    this.cleanUp();
     const candidates = Object.values(this.services).filter(
       service => service.name === name && service.version === version
     );
@@ -16,6 +17,7 @@ class ServiceRegistry {
     return candidates;
   }
   register(name, version, ip, port) {
+    this.cleanUp();
     const key = name + version + ip + port;
     if (!this.services[key]) {
       this.services[key] = {};
@@ -43,6 +45,17 @@ class ServiceRegistry {
       `Unregister services ${name}, version ${version} at ${ip}: ${port}`
     );
     return key;
+  }
+  // clean up remove servie that timeout.
+  cleanUp(){
+    const now = Math.floor(new Date() / 1000);
+    Object.keys(this.services).forEach((key)=>{
+      if(this.services[key].timestamp + this.timeout < now){
+        delete this.services[key];
+        console.log(`Remove service ${key}`);
+        
+      }
+    })
   }
 }
 module.exports = ServiceRegistry;
