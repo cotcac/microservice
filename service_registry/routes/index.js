@@ -16,12 +16,12 @@ router.get("/find/:serviceName/:serviceVersion", (req, res) => {
 });
 // register service
 router.put(
-  "/register/:serviceName/:serviceVersion/:servicePort",
+  "/register/:serviceName/:serviceVersion/:serviceIp/:servicePort",
   (req, res) => {
-    const { serviceName, serviceVersion, servicePort } = req.params;
-    const serviceIp = req.connection.remoteAddress.includes("::")
-      ? `[${req.connection.remoteAddress}]`
-      : req.connection.remoteAddress;
+    const { serviceName, serviceVersion, serviceIp, servicePort } = req.params;
+    // const serviceIp = req.connection.remoteAddress.includes("::")
+    //   ? `[${req.connection.remoteAddress}]`
+    //   : req.connection.remoteAddress;
     const serviceKey = serviceRegistry.register(
       serviceName,
       serviceVersion,

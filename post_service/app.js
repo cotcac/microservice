@@ -19,14 +19,16 @@ app.use("/users", usersRouter);
 console.log("always run first");
 //auto register to service registry.
 const registerService = () =>
-  axios.put(`http://localhost:3003/register/posts/1.0/3001`).then(r => {
-    console.log("register success");
-  });
+  axios
+    .put(`http://localhost:3003/register/posts/1.0/192.168.43.230/3001`)
+    .then(r => {
+      console.log("register success");
+    });
 const unregisterService = () =>
   axios.delete(`http://localhost:3003/register/posts/1.0/3001`);
 
 registerService();
-const interval = setInterval(registerService, 30000);// refresh registry after 30'
+const interval = setInterval(registerService, 30000); // refresh registry after 30'
 //clean up
 const cleanup = async () => {
   clearInterval(interval);

@@ -21,7 +21,7 @@ console.log("always run first");
 //auto register to service registry. Every 30s
 const registerService = () =>
   axios
-    .put(`http://localhost:3003/register/users/1.0/3002`)
+    .put(`http://localhost:3003/register/users/1.0/192.168.43.230/3002`)
     .then(r => {
       console.log("register to registry service sucess");
     })
@@ -39,7 +39,7 @@ const unregisterService = () =>
     });
 // auto regisgter when start app
 registerService();
-const interval = setInterval(registerService, 30000);// refresh registry after 30'
+const interval = setInterval(registerService, 30000); // refresh registry after 30'
 //clean up
 const cleanup = async () => {
   clearInterval(interval);
