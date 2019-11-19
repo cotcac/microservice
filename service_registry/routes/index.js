@@ -19,9 +19,6 @@ router.put(
   "/register/:serviceName/:serviceVersion/:serviceIp/:servicePort",
   (req, res) => {
     const { serviceName, serviceVersion, serviceIp, servicePort } = req.params;
-    // const serviceIp = req.connection.remoteAddress.includes("::")
-    //   ? `[${req.connection.remoteAddress}]`
-    //   : req.connection.remoteAddress;
     const serviceKey = serviceRegistry.register(
       serviceName,
       serviceVersion,
@@ -33,12 +30,9 @@ router.put(
 );
 // delete service
 router.delete(
-  "/register/:serviceName/:serviceVersion/:servicePort",
+  "/register/:serviceName/:serviceVersion/:serviceIp/:servicePort",
   (req, res) => {
-    const { serviceName, serviceVersion, servicePort } = req.params;
-    const serviceIp = req.connection.remoteAddress.includes("::")
-      ? `[${req.connection.remoteAddress}]`
-      : req.connection.remoteAddress;
+    const { serviceName, serviceVersion, serviceIp, servicePort } = req.params;
     const serviceKey = serviceRegistry.unregister(
       serviceName,
       serviceVersion,
