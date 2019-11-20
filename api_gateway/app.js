@@ -17,11 +17,6 @@ app.use(cookieParser());
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
-
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
@@ -32,9 +27,9 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.json(err.stack);
 });
-
+// 404 error handler
 app.get("*", function(req, res) {
-  res.notFound();
+  res.sendStatus(404);
 });
 
 module.exports = app;
