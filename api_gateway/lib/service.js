@@ -13,10 +13,18 @@ exports.callService = async function callService(requestOptions) {
  */
 exports.getService = async function getService(serviceName) {
   // this should be in config file not hard code :)
-  const response = await axios.get(
-    `http://192.168.43.230:3003/find/${serviceName}/1.0/`
-  );
-  console.log(response.data);
 
-  return response.data;
+  return new Promise((res, rej) => {
+    axios
+      .get(`http://192.168.43.230:3003/find/${serviceName}/1.0/`)
+      .then(r => {
+        return res(r.response);
+      })
+      .catch(e => {
+        return rej({
+          status: e.response.status || 500,
+          data: e.response.data || "unknown"
+        });
+      });
+  });
 };
