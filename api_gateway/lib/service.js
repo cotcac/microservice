@@ -18,7 +18,7 @@ exports.getService = async function getService(serviceName) {
     axios
       .get(`http://192.168.43.230:3003/find/${serviceName}/1.0/`)
       .then(r => {
-        return res(r.response);
+        return res(r.data);
       })
       .catch(e => {
         return rej({

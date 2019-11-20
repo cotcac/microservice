@@ -13,6 +13,8 @@ router.get("/", async function(req, res, next) {
     });
     res.json(data);
   } catch (error) {
+    console.log(error);
+
     res.status(error.status).json(error.data);
   }
 });
