@@ -27,4 +27,10 @@ router.get("/slow", function(req, res, next) {
   }, 5000);
 });
 
+// server error service example
+
+router.get("/err", function(req, res, next) {
+  throw new Error("something bad happened");
+});
+
 module.exports = router;

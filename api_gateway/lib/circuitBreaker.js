@@ -1,12 +1,12 @@
-const axios = require('axios');
+const axios = require("axios");
 //TODO
 // when service back to life have to make circut from open to close immidiately not have to wait for xxx time.
 class CircuitBreaker {
   constructor() {
     this.states = {};
-    this.failureThreshold = 5;//times
-    this.cooldownPeriod = 100;// after x seconds it will try to call micro service again.
-    this.requestTimeout = 1;// second
+    this.failureThreshold = 5; //times
+    this.cooldownPeriod = 100; // after x seconds it will try to call micro service again.
+    this.requestTimeout = 1; // second
   }
 
   async callService(requestOptions) {
@@ -33,7 +33,7 @@ class CircuitBreaker {
     const state = this.states[endpoint];
     state.failures += 1;
     if (state.failures > this.failureThreshold) {
-      state.circuit = 'OPEN';
+      state.circuit = "OPEN";
       state.nextTry = new Date() / 1000 + this.cooldownPeriod;
       console.log(`ALERT! Circuit for ${endpoint} is in state 'OPEN'`);
     }
@@ -42,10 +42,10 @@ class CircuitBreaker {
   canRequest(endpoint) {
     if (!this.states[endpoint]) this.initState(endpoint);
     const state = this.states[endpoint];
-    if (state.circuit === 'CLOSED') return true;
+    if (state.circuit === "CLOSED") return true;
     const now = new Date() / 1000;
     if (state.nextTry <= now) {
-      state.circuit = 'HALF';
+      state.circuit = "HALF";
       return true;
     }
     return false;
@@ -55,8 +55,8 @@ class CircuitBreaker {
     this.states[endpoint] = {
       failures: 0,
       cooldownPeriod: this.cooldownPeriod,
-      circuit: 'CLOSED',
-      nextTry: 0,
+      circuit: "CLOSED",
+      nextTry: 0
     };
   }
 }

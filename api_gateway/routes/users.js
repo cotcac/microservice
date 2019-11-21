@@ -41,4 +41,23 @@ router.get("/slow", async function(req, res, next) {
   }
 });
 
+// error service
+router.get("/err", async function(req, res, next) {
+  try {
+    const { ip, port } = await service.getService("users");
+    console.log(`http://${ip}:${port}/err`);
+
+    const data = await service.callService({
+      method: "get",
+      url: `http://${ip}:${port}/err`
+    });
+    //
+    if (!data) return res.sendStatus(503);
+    res.json(data);
+  } catch (error) {
+    console.log(error);
+
+    res.status(error.status).json(error.data);
+  }
+});
 module.exports = router;

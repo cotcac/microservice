@@ -12,6 +12,8 @@ router.get("/find/:serviceName/:serviceVersion", (req, res) => {
   const { serviceName, serviceVersion } = req.params;
   const svc = serviceRegistry.get(serviceName, serviceVersion);
   if (!svc) return res.status(404).json({ result: "Service not found!" });
+  // 500 error
+  // 200 error
   return res.json(svc);
 });
 // register service
